@@ -1,0 +1,26 @@
+version: "3"
+networks:
+  myAppNet:
+    driver: overlay
+  
+services:
+  rabbit-worker:
+    image: rabbit-worker:latest
+    deploy:
+      replicas: 3
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBIT_HOST=rabbitmq
+    ports:
+      - "8080:8080"
+    networks:
+      - myAppNet
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - myAppNet

@@ -1,0 +1,36 @@
+version: "3"
+services:
+  rabbit-worker1:
+    container_name: WorkerA
+    hostname: WorkerA
+    image: rabbit-worker:latest
+    environment:
+      - RABBIT_HOST=rabbitmq
+    ports:
+      - "8080:8080"
+  
+  rabbit-worker2:
+    container_name: WorkerB
+    hostname: WorkerB
+    image: rabbit-worker:latest
+    environment:
+      - RABBIT_HOST=rabbitmq
+    ports:
+      - "8081:8080"
+   
+  rabbit-worker3:
+    container_name: WorkerC
+    hostname: WorkerC
+    image: rabbit-worker:latest
+    environment:
+      - RABBIT_HOST=rabbitmq
+    ports:
+      - "8082:8080"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    hostname: rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
